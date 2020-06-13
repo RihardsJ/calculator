@@ -1,4 +1,5 @@
-// 1. variable section - all dom objects assigned to the global varaibles
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// 1. VARIABLE DECLARATION - all dom objects assigned to the global varaibles
 let input = document.querySelector("#input");
 let output = document.querySelector("#output");
 
@@ -12,8 +13,8 @@ const BCKSP = document.querySelector("#backspace");
 let num = document.querySelectorAll(".number");
 let oper = document.querySelectorAll(".operator");
 
-// 2. input section - contains functions that are responsible for input operations
-
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// 2. INPUT SECTION - contains statements which are ensures data input and data validation
 // 2.1 expression and doubleOperator ensures that input is correct and ready for calculation
 function expression(element) {
     if (input.innerHTML === "0" && /\d/.test(element.value)) { input.innerHTML = input.innerHTML.replace("0", "") };
@@ -57,8 +58,52 @@ DOT.addEventListener("click", () => {
     if (arr[arr.length-1].indexOf(".") === -1) {expression(DOT)};  
 }); 
 
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// 3. EQUATION - contains statements which calculates the arithmentic input and returns the result
 
+function equation(formula) {
+    function calculator(num1, num2, operator) {
+        math = {
+            "-" : () => num1 - num2,
+            "+" : () => num1 + num2,
+            "/" : () => num1 / num2,
+            "*" : () => num1 * num2,
+        }
+       return math[operator]();
+    }
+    
+    let primary = /[(?<=\/ || \*)\-]*[\d\.]+[\*\/][(?<=\/ || \*)\-]*[\d\.]+/;
+    let primaryOperators = /[\*\/]/;
+    let secondary = /[\-]*[\d\.]+[\+][\-]*[\d\.]+/;
+    let secondaryOperator = /[\+]/
+    
+    let equation = "";
+    let numbers = 0;
+    let mathArray = [];
+    
+    while (/[\*\/\+]/.test(formula)){
+        if (/[\*\/]/.test(formula)) {
+            equation = formula.match(primary);
+            mathArray = equation[0].match(primaryOperators);
+            numbers = equation[0].split(primaryOperators);
+        } else{
+            equation = formula.match(secondary);
+            mathArray = equation[0].match(secondaryOperator);
+            numbers = equation[0].split(secondaryOperator);
+        }
+        mathArray.unshift(Number(numbers[0]), Number(numbers[1]));
+        formula = formula.replace(equation, calculator(...mathArray))
+        // console.log(calculator(...mathArray), formula);
+    }
 
-// EQUALS.addEventListener("click", equation);
+        formula = formula.split("-");
+        formula = formula.reduce((acc, val) => acc - val);
+        return formula.toString();
+    }
 
+EQUALS.addEventListener("click", () => {
+    output.innerHTML= equation(output.innerHTML);
+    if (output.innerHTML === "Infinity") { output.innerHTML = "ERROR PRESS C"}
+    input.innerHTML = "0";
+});
 

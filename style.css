@@ -19,4 +19,9 @@ p {
     font-size: 10px;
 }
 
+#output, #input {
+    max-width: 235.15px;
+    overflow-wrap: break-word;
+}
+
 

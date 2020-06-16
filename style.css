@@ -7,11 +7,12 @@ body {
     justify-content: center;
     flex-direction: column;
     height: 100vh;
-    background-color: #bdbdbd;
+    background-color: #65747e;
 }
 
 #calculator {
     background-color: #2e4450;
+    box-shadow: 5px 5px 8px 0 rgb(59, 87, 102);
 }
 
 /* 2. display styling */
@@ -28,7 +29,7 @@ body {
     border-style: inset;
     border-width: 1px;
     border-color: #2e4450;
-    background-color: #dddcdc;
+    background-color: #f3f3f3;
     overflow-wrap: break-word;
 }
 
@@ -64,14 +65,27 @@ button {
     color: #FF530D;
 }
 
-button:hover{
+.number:hover, #zero:hover{
     color: #FFF !important;
     border-color: #FFF;
+}
+
+.operator:hover, #dot:hover{
+    border-color: #00EAFF;
+}
+
+#clear:hover {
+    border-color: #FF530D;  
+}
+
+#backspace:hover, #equals:hover{
+    border-color: #FFA200;
 }
 
 /* 3. footer text s*/
 p {
     padding-top: 50px;
+    color: #FFF;
     font-size: 14px;
     font-family: 'Itim', cursive;
 }

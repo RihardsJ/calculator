@@ -106,4 +106,3 @@ EQUALS.addEventListener("click", () => {
     if (output.innerHTML === "Infinity") { output.innerHTML = "ERROR PRESS C"}
     input.innerHTML = "0";
 });
-

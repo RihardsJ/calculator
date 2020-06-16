@@ -1,27 +1,78 @@
+/* 1. typography */
+@import url('https://fonts.googleapis.com/css2?family=Itim&family=Orbitron&display=swap');
+
 body {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     height: 100vh;
-    background-color: rgb(225, 225, 225);
+    background-color: #bdbdbd;
 }
 
-button {
-    width: 75px;
-    height: 50px;
-    text-align: center;
+#calculator {
+    background-color: #2e4450;
 }
 
-
-p {
-    padding-top: 50px;
-    font-size: 10px;
+/* 2. display styling */
+#display {
+    font-family: 'Orbitron', sans-serif;
+    border-style: inset;
+    border-color: #2e4450;
+    border-top-width: 3px;
 }
 
 #output, #input {
-    max-width: 235.15px;
+    width: 235px;
+    padding-left: 5px;
+    border-style: inset;
+    border-width: 1px;
+    border-color: #2e4450;
+    background-color: #dddcdc;
     overflow-wrap: break-word;
 }
 
+#output {
+    font-size: 20px;
+}
+
+#input {
+    color: rgb(88, 88, 88);
+}
+
+/* 3. button styling */
+button {
+    width: 75px;
+    height: 50px;
+    background-color: #2e4450;
+    border-color: #46687a;
+    text-align: center;
+    color: #bdbdbd;
+    font-family: 'Itim', cursive;
+    font-size: 20px;
+}
+
+.operator, #dot {
+    color: #00EAFF;
+}
+ 
+ #backspace, #equals {
+    color: #FFA200;
+}
+
+#clear {
+    color: #FF530D;
+}
+
+button:hover{
+    color: #FFF !important;
+    border-color: #FFF;
+}
+
+/* 3. footer text s*/
+p {
+    padding-top: 50px;
+    font-size: 14px;
+    font-family: 'Itim', cursive;
+}
 

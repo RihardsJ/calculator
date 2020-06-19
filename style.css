@@ -8,6 +8,7 @@ body {
     flex-direction: column;
     height: 100vh;
     background-color: #65747e;
+    background-image: url(img/background-green.jpg);
 }
 
 #calculator {

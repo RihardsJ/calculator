@@ -13,7 +13,7 @@ body {
 
 #calculator {
     background-color: #2e4450;
-    box-shadow: 5px 5px 8px 0 rgb(59, 87, 102);
+    box-shadow: 5px 5px 10px 5px #394247;
 }
 
 /* 2. display styling */
@@ -89,5 +89,6 @@ p {
     color: #FFF;
     font-size: 14px;
     font-family: 'Itim', cursive;
+    text-shadow: 9px 4px 5px #31363a;
 }
 

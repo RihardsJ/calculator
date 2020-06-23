@@ -23,3 +23,10 @@ To run the code simply download the reposetory unzip all files and run index.htm
 
 ## Images
   Background image royalty free and has been taken from [PixaBay](https://pixabay.com/);
+
+## Keyboard
+  The calculator accepts keyboard input including numbers(0-9) and math operators(- + / *) as well as decimal(.).
+  Delete key clears all values.
+  Enter key starts the calculation.
+
+  Input can be done using both small keyboard (without Numpad keys) and extended keyboard (with Numpad keys).

@@ -17,16 +17,35 @@ let oper = document.querySelectorAll(".operator");
 // 2. INPUT SECTION - contains statements which are ensures data input and data validation
 // 2.1 expression and doubleOperator ensures that input is correct and ready for calculation
 function expression(element) {
-    if (input.innerHTML === "0" && /\d/.test(element.value)) { input.innerHTML = input.innerHTML.replace("0", "") };
-    if (output.innerHTML === "0" && /\d/.test(element.value)) { output.innerHTML = output.innerHTML.replace("0", "") };
 
-    (/[\d\.]/.test(element.value) && /[\d\.]/.test(input.innerHTML) ) ? input.innerHTML += element.value : input.innerHTML = element.value; 
-    output.innerHTML += element.value;
+    if (typeof element === "object") { element = element.value };
+    if (input.innerHTML === "0" && /\d/.test(element)) { input.innerHTML = input.innerHTML.replace("0", "") };
+    if (output.innerHTML === "0" && /\d/.test(element)) { output.innerHTML = output.innerHTML.replace("0", "") };
+
+    (/[\d\.]/.test(element) && /[\d\.]/.test(input.innerHTML) ) ? input.innerHTML += element : input.innerHTML = element; 
+    output.innerHTML += element;
 }
 
 function doubleOperators(oper) {
-   ( oper.value === "-" && /[\+\/\*]$/.test(output.innerHTML)) ? output.innerHTML += oper.value : output.innerHTML = output.innerHTML.replace(/\D+$/, oper.value)
-    input.innerHTML = oper.value;
+
+    if (typeof oper === "object") { oper = oper.value };
+   ( oper === "-" && /[\+\/\*]$/.test(output.innerHTML)) ? output.innerHTML += oper : output.innerHTML = output.innerHTML.replace(/\D+$/, oper)
+    input.innerHTML = oper;
+}
+
+function operatorExpression(oprs) {
+    /[\+\-\*\/]$/.test(output.innerHTML) ? doubleOperators(oprs) : expression(oprs);
+}
+
+function zeroInput() { 
+    arr = output.innerHTML.split(/[\+\-\*\/]/);
+   if (arr[arr.length-1].indexOf("0") !== 0 || arr[arr.length-1].indexOf(".") > -1) {expression(ZERO)};
+}
+
+function dotInput() {
+    arr = output.innerHTML.split(/[\+\-\*\/]/);
+    /[\+\-\*\/]$/.test(output.innerHTML) ? DOT.value = "0." : DOT.value = "."; 
+    if (arr[arr.length-1].indexOf(".") === -1) {expression(DOT)};  
 }
 
 // 2.2 resets the value of the function and both displays
@@ -35,33 +54,26 @@ function reset() {
     output.innerHTML = "0";
 }
 
-// 2.3 click events
-num.forEach( nr =>  nr.addEventListener("click", () => expression(nr)) );
-oper.forEach( op =>  op.addEventListener("click", () => {
-    /[\+\-\*\/]$/.test(output.innerHTML) ? doubleOperators(op) : expression(op);
-}));
-
-CLEAR.addEventListener("click", () => reset());
-BCKSP.addEventListener("click", () => {
+function backspace() {
     input.innerHTML.length === 1 ? input.innerHTML = "0" : input.innerHTML = input.innerHTML.slice(0, -1);
     output.innerHTML.length === 1 ? output.innerHTML = "0" : output.innerHTML = output.innerHTML.slice(0, -1);
-});
+}
 
-ZERO.addEventListener("click", () => { 
-    arr = output.innerHTML.split(/[\+\-\*\/]/);
-   if (arr[arr.length-1].indexOf("0") !== 0 || arr[arr.length-1].indexOf(".") > -1) {expression(ZERO)};
-});
+// 3 INPUT CLICK EVENTS
 
-DOT.addEventListener("click", () => {
-    arr = output.innerHTML.split(/[\+\-\*\/]/);
-    /[\+\-\*\/]$/.test(output.innerHTML) ? DOT.value = "0." : DOT.value = "."; 
-    if (arr[arr.length-1].indexOf(".") === -1) {expression(DOT)};  
-}); 
+num.forEach( nr =>  nr.addEventListener("click", () => expression(nr)) );
+oper.forEach( op =>  op.addEventListener("click", () => operatorExpression(op)) );
+
+ZERO.addEventListener("click", () => zeroInput() );
+DOT.addEventListener("click", () => dotInput() ); 
+
+CLEAR.addEventListener("click", () => reset() );
+BCKSP.addEventListener("click", () => backspace() );
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// 3. EQUATION - contains statements which calculates the arithmentic input and returns the result
+// 4. EQUATION - contains statements which calculates the arithmentic input and returns the result
 
-function equation(formula) {
+function addSubMultDiv(formula) {
     function calculator(num1, num2, operator) {
         math = {
             "-" : () => num1 - num2,
@@ -101,8 +113,30 @@ function equation(formula) {
         return formula.toString();
     }
 
-EQUALS.addEventListener("click", () => {
-    output.innerHTML= equation(output.innerHTML);
+function count() {
+    output.innerHTML= addSubMultDiv(output.innerHTML);
     if (output.innerHTML === "Infinity") { output.innerHTML = "ERROR PRESS C"}
     input.innerHTML = "0";
+}
+
+EQUALS.addEventListener("click", count );
+
+// 5. keyboard events
+
+window.addEventListener("keydown", c => {
+    switch (c.key) {
+        case "Backspace" : backspace();
+            break;
+        case "Delete" : reset();
+            break;
+        case "Enter" : count();
+            break;
+        case "0" : zeroInput();
+            break;
+        case "." : dotInput();
+            break;
+    }   
+
+    if ( /[1-9]/.test(c.key) ) { expression(c.key) };
+    if ( /[\/\*\-\+]/.test(c.key) ) { operatorExpression(c.key) };
 });

@@ -21,7 +21,10 @@ function expression(element) {
     if (typeof element === "object") { element = element.value };
     if (input.innerHTML === "0" && /\d/.test(element)) { input.innerHTML = input.innerHTML.replace("0", "") };
     if (output.innerHTML === "0" && /\d/.test(element)) { output.innerHTML = output.innerHTML.replace("0", "") };
-
+    
+    arr = output.innerHTML.split(/[\+\-\*\/]/);
+    if (arr[arr.length-1] === "0" && /\d/.test(element.value)) {output.innerHTML = output.innerHTML.slice(0, -1)}
+    
     (/[\d\.]/.test(element) && /[\d\.]/.test(input.innerHTML) ) ? input.innerHTML += element : input.innerHTML = element; 
     output.innerHTML += element;
 }

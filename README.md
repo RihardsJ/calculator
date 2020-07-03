@@ -24,6 +24,9 @@ To run the code simply download the reposetory unzip all files and run index.htm
 ## Images
   Background image royalty free and has been taken from [PixaBay](https://pixabay.com/);
 
+## Sounds
+  Input sounds are royalty free and sourced from [Freesfx](https://freesfx.co.uk/Default.aspx);
+
 ## Keyboard
   The calculator accepts keyboard input including numbers(0-9) and math operators(- + / *) as well as decimal(.).
   Delete key clears all values.

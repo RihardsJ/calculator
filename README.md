@@ -6,7 +6,7 @@ The calculator does not require pre-installation of any software. It is able to 
 
 ## Installing
 To run the code simply download the reposetory unzip all files and run index.html file in your browser.
-Alternatively calculator can be open in your current browser (calculator)[https://rihardsj.github.io/calculator/].
+Alternatively calculator can be open in your current browser [calculator](https://rihardsj.github.io/calculator/).
 
 ## Built with
    * Main code editor – visual studio code;

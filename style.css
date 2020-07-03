@@ -1,6 +1,7 @@
 /* 1. typography */
 @import url('https://fonts.googleapis.com/css2?family=Itim&family=Orbitron&display=swap');
 
+/* 2. main body */
 body {
     display: flex;
     align-items: center;
@@ -11,12 +12,14 @@ body {
     background-image: url(img/background-green.jpg);
 }
 
+
+/* 3. calculator */
 #calculator {
     background-color: #2e4450;
     box-shadow: 5px 5px 10px 5px #394247;
 }
 
-/* 2. display styling */
+/* 3.1 display styling */
 #display {
     font-family: 'Orbitron', sans-serif;
     border-style: inset;
@@ -25,7 +28,7 @@ body {
 }
 
 #output, #input {
-    width: 235px;
+    width: 224px;
     padding-left: 5px;
     border-style: inset;
     border-width: 1px;
@@ -42,7 +45,7 @@ body {
     color: rgb(88, 88, 88);
 }
 
-/* 3. button styling */
+/* 3.2 button styling */
 button {
     width: 75px;
     height: 50px;
@@ -65,7 +68,7 @@ button {
 #clear {
     color: #FF530D;
 }
-
+/* 3.3 button hover style */
 .number:hover, #zero:hover{
     color: #FFF !important;
     border-color: #FFF;
@@ -82,8 +85,13 @@ button {
 #backspace:hover, #equals:hover{
     border-color: #FFA200;
 }
+/* 3.4 button click animation*/
+button:active {
+    border-style: inset;
+}
 
-/* 3. footer text s*/
+
+/* 4. footer */
 p {
     padding-top: 50px;
     color: #FFF;

@@ -17,7 +17,6 @@ let oper = document.querySelectorAll(".operator");
 // 2. INPUT SECTION - contains statements which are ensures data input and data validation
 // 2.1 expression and doubleOperator ensures that input is correct and ready for calculation
 function expression(element) {
-
     if (typeof element === "object") { element = element.value };
     if (input.innerHTML === "0" && /\d/.test(element)) { input.innerHTML = input.innerHTML.replace("0", "") };
     if (output.innerHTML === "0" && /\d/.test(element)) { output.innerHTML = output.innerHTML.replace("0", "") };
@@ -27,10 +26,11 @@ function expression(element) {
     
     (/[\d\.]/.test(element) && /[\d\.]/.test(input.innerHTML) ) ? input.innerHTML += element : input.innerHTML = element; 
     output.innerHTML += element;
+
+    buttonClick();
 }
 
 function doubleOperators(oper) {
-
     if (typeof oper === "object") { oper = oper.value };
    ( oper === "-" && /[\+\/\*]$/.test(output.innerHTML)) ? output.innerHTML += oper : output.innerHTML = output.innerHTML.replace(/\D+$/, oper)
     input.innerHTML = oper;
@@ -38,28 +38,33 @@ function doubleOperators(oper) {
 
 function operatorExpression(oprs) {
     /[\+\-\*\/]$/.test(output.innerHTML) ? doubleOperators(oprs) : expression(oprs);
+    buttonClick();
 }
 
 function zeroInput() { 
     arr = output.innerHTML.split(/[\+\-\*\/]/);
    if (arr[arr.length-1].indexOf("0") !== 0 || arr[arr.length-1].indexOf(".") > -1) {expression(ZERO)};
+   buttonClick();
 }
 
 function dotInput() {
     arr = output.innerHTML.split(/[\+\-\*\/]/);
     /[\+\-\*\/]$/.test(output.innerHTML) ? DOT.value = "0." : DOT.value = "."; 
     if (arr[arr.length-1].indexOf(".") === -1) {expression(DOT)};  
+    buttonClick();
 }
 
 // 2.2 resets the value of the function and both displays
 function reset() {
     input.innerHTML = "0";
     output.innerHTML = "0";
+    buttonClick();
 }
 
 function backspace() {
     input.innerHTML.length === 1 ? input.innerHTML = "0" : input.innerHTML = input.innerHTML.slice(0, -1);
     output.innerHTML.length === 1 ? output.innerHTML = "0" : output.innerHTML = output.innerHTML.slice(0, -1);
+    buttonClick();
 }
 
 // 3 INPUT CLICK EVENTS
@@ -120,6 +125,7 @@ function count() {
     output.innerHTML= addSubMultDiv(output.innerHTML);
     if (output.innerHTML === "Infinity") { output.innerHTML = "ERROR PRESS C"}
     input.innerHTML = "0";
+    equationClick();
 }
 
 EQUALS.addEventListener("click", count );
@@ -143,3 +149,13 @@ window.addEventListener("keydown", c => {
     if ( /[1-9]/.test(c.key) ) { expression(c.key) };
     if ( /[\/\*\-\+]/.test(c.key) ) { operatorExpression(c.key) };
 });
+
+// 6. animation
+
+function buttonClick() {
+    new Audio("sounds/click.mp3").play();
+}
+
+function equationClick() {
+    new Audio("sounds/double_click.mp3").play();
+}
